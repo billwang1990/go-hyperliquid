@@ -67,6 +67,14 @@ func NewExchangeAPI(isMainnet bool) *ExchangeAPI {
 	return &api
 }
 
+func (api *ExchangeAPI) GetMeta() map[string]AssetInfo {
+	return api.meta
+}
+
+func (api *ExchangeAPI) GetSpotMeta() map[string]AssetInfo {
+	return api.spotMeta
+}
+
 func (api *ExchangeAPI) Endpoint() string {
 	return api.baseEndpoint
 }
