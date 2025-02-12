@@ -147,15 +147,18 @@ func StructToMap(strct any) (res map[string]interface{}, err error) {
 
 // Round the order size to the nearest tick size
 func RoundOrderSize(x float64, szDecimals int) string {
-    newX := math.Round(x*math.Pow10(szDecimals)) / math.Pow10(szDecimals)
-    str := big.NewFloat(newX).Text('f', szDecimals)
-    // 去掉末尾的0
-    str = strings.TrimRight(str, "0")
-    // 如果最后一个字符是小数点，去掉小数点
-    if str[len(str)-1] == '.' {
-        str = str[:len(str)-1]
-    }
-    return str
+	if szDecimals == 0 {
+		return strconv.FormatFloat(x, 'f', -1, 64)
+	}
+	newX := math.Round(x*math.Pow10(szDecimals)) / math.Pow10(szDecimals)
+	str := big.NewFloat(newX).Text('f', szDecimals)
+	// 去掉末尾的0
+	str = strings.TrimRight(str, "0")
+	// 如果最后一个字符是小数点，去掉小数点
+	if str[len(str)-1] == '.' {
+		str = str[:len(str)-1]
+	}
+	return str
 }
 
 // Round the order price to the nearest tick size
